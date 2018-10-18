@@ -15,20 +15,23 @@ public class SelectionHandler implements EventHandler<MouseEvent> {
 	public SelectionHandler(final DrawingPane pane) {
 		selectedShapes = new ArrayList<>();
 		drawingPane = pane;
-		drawingPane.setOnMousePressed(this);
-		drawingPane.setOnMouseDragged(this);
-		drawingPane.setOnMouseReleased(this);
+		drawingPane.setOnMouseClicked(this);
 	}
 
 	@Override
 	public void handle(final MouseEvent event) {
-		if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED) && event.isShiftDown()) {
+		if (event.isShiftDown()) {
 			for (final IShape shape : drawingPane) {
 				if (shape.isOn(event.getX(), event.getY())) {
-//					selectedShape = shape;
 					addOrRemoveSelectedShape(shape);
-//					shape.setSelected(true);
 					break;
+				}
+			}
+		} else {
+			clearSelectedShapes();
+			for (final IShape shape : drawingPane) {
+				if (shape.isOn(event.getX(), event.getY())) {
+					addShape(shape);
 				}
 			}
 		}
@@ -53,6 +56,12 @@ public class SelectionHandler implements EventHandler<MouseEvent> {
 	}
 
 	private void clearSelectedShapes() {
-		selectedShapes.clear();
+		for (final IShape shape : drawingPane) {
+			removeShape(shape);
+		}
+	}
+
+	public List<IShape> getSelectedShapes() {
+		return selectedShapes;
 	}
 }

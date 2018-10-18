@@ -88,4 +88,8 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable {
 	public int getNbShapes() {
 		return shapes.size();
 	}
+
+	public List<IShape> getSelection() {
+		return selectionHandler.getSelectedShapes();
+	}
 }

@@ -13,8 +13,6 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
 	private double orgSceneX;
 	private double orgSceneY;
 
-	private IShape selectedShape;
-
 	public MouseMoveHandler(final DrawingPane drawingPane) {
 		this.drawingPane = drawingPane;
 		drawingPane.setOnMousePressed(this);
@@ -28,46 +26,29 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
 		if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
 			orgSceneX = event.getSceneX();
 			orgSceneY = event.getSceneY();
-
-//			for (final Shape shape : drawingPane.getShapes()) {
-			for (final IShape shape : drawingPane) {
-				if (shape.isOn(event.getX(), event.getY())) {
-					selectedShape = shape;
-					shape.setSelected(true);
-					break;
-				}
-			}
-//			orgTranslateX = selectedShape == null ? 0 : selectedShape.getTranslateX();
-//			orgTranslateY = selectedShape == null ? 0 : selectedShape.getTranslateY();
 		}
 
 		if (event.getEventType().equals(MouseEvent.MOUSE_DRAGGED)) {
-			if (selectedShape == null)
+			if (drawingPane.getSelection().isEmpty())
 				return;
 
 			final double offsetX = event.getSceneX() - orgSceneX;
 			final double offsetY = event.getSceneY() - orgSceneY;
 
-//			final double offsetX = event.getSceneX() - orgSceneX;
-//			final double offsetY = event.getSceneY() - orgSceneY;
-//			final double newTranslateX = orgTranslateX + offsetX;
-//			final double newTranslateY = orgTranslateY + offsetY;
-
-//			selectedShape.setTranslateX(newTranslateX);
-//			selectedShape.setTranslateY(newTranslateY);
-//			selectedShape.offset(newTranslateX, newTranslateY);
-			selectedShape.offset(offsetX, offsetY);
+			for (final IShape shape : drawingPane.getSelection()) {
+				shape.offset(offsetX, offsetY);
+			}
 
 			orgSceneX = event.getSceneX();
 			orgSceneY = event.getSceneY();
 		}
 
-		if (event.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
-			if (selectedShape == null)
-				return;
-
-			selectedShape.setSelected(false);
-			selectedShape = null;
-		}
+//		if (event.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
+//			if (selectedShape == null)
+//				return;
+//
+//			selectedShape.setSelected(false);
+//			selectedShape = null;
+//		}
 	}
 }
