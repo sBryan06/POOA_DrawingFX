@@ -1,5 +1,8 @@
 package drawing;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -7,6 +10,8 @@ import javafx.scene.input.MouseEvent;
  * Created by lewandowski on 20/12/2017.
  */
 public class MouseMoveHandler implements EventHandler<MouseEvent> {
+
+	Logger logger = Logger.getLogger(MouseMoveHandler.class.getName());
 
 	private final DrawingPane drawingPane;
 
@@ -22,8 +27,8 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(final MouseEvent event) {
-
 		if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
+			logger.log(Level.INFO, "MouseMoveHandler#handle MOUSE_PRESSED");
 			orgSceneX = event.getSceneX();
 			orgSceneY = event.getSceneY();
 		}

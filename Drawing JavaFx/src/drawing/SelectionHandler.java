@@ -2,11 +2,14 @@ package drawing;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 public class SelectionHandler implements EventHandler<MouseEvent> {
+
+	Logger logger = Logger.getLogger(SelectionHandler.class.getName());
 
 	private final DrawingPane drawingPane;
 
@@ -29,10 +32,14 @@ public class SelectionHandler implements EventHandler<MouseEvent> {
 			}
 		} else {
 			clearSelectedShapes();
-			for (final IShape shape : drawingPane) {
-				if (shape.isOn(event.getX(), event.getY())) {
-					addShape(shape);
-				}
+			addClickedShape(event);
+		}
+	}
+
+	private void addClickedShape(final MouseEvent event) {
+		for (final IShape shape : drawingPane) {
+			if (shape.isOn(event.getX(), event.getY())) {
+				addShape(shape);
 			}
 		}
 	}
