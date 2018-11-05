@@ -50,4 +50,7 @@ public class ShapeAdapter implements IShape {
 		pane.getChildren().remove(shape);
 	}
 
+	public Shape getShape() {
+		return shape;
+	}
 }

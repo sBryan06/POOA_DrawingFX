@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-public class SelectionHandler implements EventHandler<MouseEvent> {
+public class SelectionHandler implements EventHandler<MouseEvent>, Observable {
 
 	Logger logger = Logger.getLogger(SelectionHandler.class.getName());
 
@@ -15,10 +15,14 @@ public class SelectionHandler implements EventHandler<MouseEvent> {
 
 	List<IShape> selectedShapes;
 
+	List<Observer> observers;
+
 	public SelectionHandler(final DrawingPane pane) {
 		selectedShapes = new ArrayList<>();
 		drawingPane = pane;
 		drawingPane.setOnMouseClicked(this);
+
+		observers = new ArrayList<>();
 	}
 
 	@Override
@@ -55,11 +59,13 @@ public class SelectionHandler implements EventHandler<MouseEvent> {
 	private void addShape(final IShape shape) {
 		selectedShapes.add(shape);
 		shape.setSelected(true);
+		this.notifyObservers();
 	}
 
 	private void removeShape(final IShape shape) {
 		selectedShapes.remove(shape);
 		shape.setSelected(false);
+		this.notifyObservers();
 	}
 
 	private void clearSelectedShapes() {
@@ -70,5 +76,22 @@ public class SelectionHandler implements EventHandler<MouseEvent> {
 
 	public List<IShape> getSelectedShapes() {
 		return selectedShapes;
+	}
+
+	@Override
+	public void addObserver(final Observer o) {
+		observers.add(o);
+	}
+
+	@Override
+	public void removeObserver(final Observer o) {
+		observers.remove(o);
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (final Observer observer : observers) {
+			observer.update();
+		}
 	}
 }

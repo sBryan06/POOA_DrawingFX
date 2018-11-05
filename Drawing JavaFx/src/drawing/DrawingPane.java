@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * Created by lewandowski on 20/12/2017.
  */
-public class DrawingPane extends Pane implements Iterable<IShape>, Observable {
+public class DrawingPane extends Pane implements Iterable<IShape>, Observable, Observer {
 
 	private final List<Observer> observers;
 
@@ -27,6 +27,8 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable {
 		observers = new ArrayList<>();
 		mouseMoveHandler = new MouseMoveHandler(this);
 		selectionHandler = new SelectionHandler(this);
+
+		selectionHandler.addObserver(this);
 	}
 
 	/**
@@ -92,4 +94,14 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable {
 	public List<IShape> getSelection() {
 		return selectionHandler.getSelectedShapes();
 	}
+
+	@Override
+	public void update() {
+		notifyObservers();
+	}
+
+	public ArrayList<IShape> getShapes() {
+		return shapes;
+	}
+
 }

@@ -9,6 +9,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import drawing.IShape;
 import drawing.PaintApplication;
 import drawing.ShapeAdapter;
+import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 
@@ -107,7 +108,7 @@ public class PaintTest extends ApplicationTest {
 	}
 
 	@Test
-	public void check_statutbar() {
+	public void check_count_shape_statutbar() {
 		assertTrue(app.getStatutBar().getCountShape() == 0);
 
 		clickOn("Triangle");
@@ -121,5 +122,25 @@ public class PaintTest extends ApplicationTest {
 		drag().dropBy(90, 90);
 
 		assertTrue(app.getStatutBar().getCountShape() == 2);
+	}
+
+	@Test
+	public void check_count_selected_shape_statutbar() {
+		assertTrue(app.getStatutBar().getCountSelectedShape() == 0);
+
+		clickOn("Triangle");
+		moveBy(50, 50);
+		drag().dropBy(80, 80);
+
+		clickOn("Rectangle");
+		moveBy(40, 40);
+		drag().dropBy(90, 90);
+
+		press(KeyCode.SHIFT);
+		for (int i = 0; i < app.getDrawingPane().getShapes().size() - 1; i++) {
+			final IShape shape = app.getDrawingPane().getShapes().get(i);
+			clickOn(((ShapeAdapter) shape).getShape());
+		}
+		assertTrue(app.getStatutBar().getCountSelectedShape() == 2);
 	}
 }

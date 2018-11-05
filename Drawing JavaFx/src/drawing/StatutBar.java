@@ -12,6 +12,7 @@ public class StatutBar extends HBox implements Observer {
 	private final DrawingPane drawingPane;
 
 	int countShape = 0;
+	int countSelectedShape = 0;
 
 	public StatutBar(final DrawingPane d) {
 		label = new Label(String.format("%d shape(s)", countShape));
@@ -22,7 +23,8 @@ public class StatutBar extends HBox implements Observer {
 	@Override
 	public void update() {
 		countShape = drawingPane.getNbShapes();
-		label.setText(String.format("%d shape(s)", countShape));
+		countSelectedShape = drawingPane.getSelection().size();
+		label.setText(String.format("%d shape(s) - %d selected", countShape, countSelectedShape));
 	}
 
 	public Label getLabel() {
@@ -37,4 +39,7 @@ public class StatutBar extends HBox implements Observer {
 		return countShape;
 	}
 
+	public int getCountSelectedShape() {
+		return countSelectedShape;
+	}
 }
