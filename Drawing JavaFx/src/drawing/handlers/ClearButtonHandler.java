@@ -1,5 +1,6 @@
-package drawing;
+package drawing.handlers;
 
+import drawing.ui.DrawingPane;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 
@@ -14,6 +15,7 @@ public class ClearButtonHandler implements EventHandler<Event> {
 	@Override
 	public void handle(final Event event) {
 		drawingPane.clear();
+		drawingPane.clearSelectedShape();
 	}
 
 }

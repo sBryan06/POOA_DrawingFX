@@ -1,5 +1,8 @@
-package drawing;
+package drawing.handlers;
 
+import drawing.shapes.IShape;
+import drawing.shapes.ShapeAdapter;
+import drawing.ui.DrawingPane;
 import javafx.scene.shape.Polygon;
 
 public class TriangleButtonHandler extends ShapeButtonHandler {

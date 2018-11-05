@@ -1,8 +1,10 @@
-package drawing;
+package drawing.handlers;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import drawing.shapes.IShape;
+import drawing.ui.DrawingPane;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 

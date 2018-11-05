@@ -1,12 +1,12 @@
 package drawing;
 
+import drawing.ui.DrawingPane;
+import drawing.ui.StatutBar;
+import drawing.ui.ToolBar;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
@@ -21,41 +21,24 @@ public class PaintApplication extends Application {
 	private BorderPane root;
 	private DrawingPane drawingPane;
 	private StatutBar statutBar;
-
-	private Button clearButton;
-	private Button rectangleButton;
-	private Button circleButton;
-	private Button triangleButton;
-	private Button supprimerButton;
+	private ToolBar toolbar;
 
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
 		root = new BorderPane();
 		scene = new Scene(root, WIDTH, HEIGHT);
 
-		root.getStylesheets().add(PaintApplication.class.getResource("./Paint.css").toExternalForm());
+		root.getStylesheets().add(PaintApplication.class.getResource("./css/Paint.css").toExternalForm());
 
 		drawingPane = new DrawingPane();
 		drawingPane.getStyleClass().add("drawingPane");
 		root.setCenter(drawingPane);
 
-		final HBox hBox = new HBox();
-		clearButton = new Button("Clear");
-//		clearButton.setOnAction(event -> drawingPane.clear());
-		clearButton.addEventFilter(ActionEvent.ACTION, new ClearButtonHandler(drawingPane));
-		rectangleButton = new Button("Rectangle");
-		rectangleButton.addEventFilter(ActionEvent.ACTION, new RectangleButtonHandler(drawingPane));
-		circleButton = new Button("Circle");
-		circleButton.addEventFilter(ActionEvent.ACTION, new EllipseButtonHandler(drawingPane));
-		triangleButton = new Button("Triangle");
-		triangleButton.addEventFilter(ActionEvent.ACTION, new TriangleButtonHandler(drawingPane));
-		supprimerButton = new Button("Supprimer");
-		supprimerButton.addEventFilter(ActionEvent.ACTION, new SupprimerButtonHandler(drawingPane));
-		hBox.getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton, supprimerButton);
-		hBox.setPadding(new Insets(5));
-		hBox.setSpacing(5.0);
-		hBox.getStyleClass().add("toolbar");
-		root.setTop(hBox);
+		toolbar = new ToolBar(drawingPane);
+		toolbar.setPadding(new Insets(5));
+		toolbar.setSpacing(5.0);
+		toolbar.getStyleClass().add("toolbar");
+		root.setTop(toolbar);
 
 		statutBar = new StatutBar(drawingPane);
 		statutBar.getChildren().add(statutBar.getLabel());

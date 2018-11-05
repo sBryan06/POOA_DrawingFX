@@ -6,9 +6,9 @@ import java.util.Iterator;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
-import drawing.IShape;
 import drawing.PaintApplication;
-import drawing.ShapeAdapter;
+import drawing.shapes.IShape;
+import drawing.shapes.ShapeAdapter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;

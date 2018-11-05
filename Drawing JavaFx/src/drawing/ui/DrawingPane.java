@@ -1,9 +1,14 @@
-package drawing;
+package drawing.ui;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import drawing.Observable;
+import drawing.Observer;
+import drawing.handlers.MouseMoveHandler;
+import drawing.handlers.SelectionHandler;
+import drawing.shapes.IShape;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
