@@ -1,5 +1,8 @@
 package drawing.ui;
 
+import drawing.enums.ButtonEnum;
+import drawing.factory.ButtonFactory;
+import drawing.factory.ButtonFactory.StyleButtonEnum;
 import drawing.handlers.ClearButtonHandler;
 import drawing.handlers.EllipseButtonHandler;
 import drawing.handlers.RectangleButtonHandler;
@@ -10,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
 public class ToolBar extends HBox {
+	ButtonFactory buttonFactory = new ButtonFactory();
 
 	private final DrawingPane drawingPane;
 
@@ -25,17 +29,21 @@ public class ToolBar extends HBox {
 	}
 
 	public void init() {
-		clearButton = new Button("Clear");
-//		clearButton.setOnAction(event -> drawingPane.clear());
+		clearButton = buttonFactory.createButton(ButtonEnum.CLEAR, StyleButtonEnum.ICON_ONLY);
 		clearButton.addEventFilter(ActionEvent.ACTION, new ClearButtonHandler(drawingPane));
-		rectangleButton = new Button("Rectangle");
+
+		rectangleButton = buttonFactory.createButton(ButtonEnum.RECTANGLE, StyleButtonEnum.ICON_ONLY);
 		rectangleButton.addEventFilter(ActionEvent.ACTION, new RectangleButtonHandler(drawingPane));
-		circleButton = new Button("Circle");
+
+		circleButton = buttonFactory.createButton(ButtonEnum.CIRCLE, StyleButtonEnum.ICON_ONLY);
 		circleButton.addEventFilter(ActionEvent.ACTION, new EllipseButtonHandler(drawingPane));
-		triangleButton = new Button("Triangle");
+
+		triangleButton = buttonFactory.createButton(ButtonEnum.TRIANGLE, StyleButtonEnum.ICON_ONLY);
 		triangleButton.addEventFilter(ActionEvent.ACTION, new TriangleButtonHandler(drawingPane));
-		supprimerButton = new Button("Supprimer");
+
+		supprimerButton = buttonFactory.createButton(ButtonEnum.DELETE, StyleButtonEnum.ICON_ONLY);
 		supprimerButton.addEventFilter(ActionEvent.ACTION, new SupprimerButtonHandler(drawingPane));
+
 		getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton, supprimerButton);
 	}
 }
