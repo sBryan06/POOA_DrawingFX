@@ -13,6 +13,10 @@ public class SupprimerButtonHandler implements EventHandler<Event> {
 
 	@Override
 	public void handle(final Event event) {
+		for (final IShape iShape : drawingPane.getSelection()) {
+			drawingPane.removeShape(iShape);
+		}
 
+		drawingPane.clearSelectedShape();
 	}
 }

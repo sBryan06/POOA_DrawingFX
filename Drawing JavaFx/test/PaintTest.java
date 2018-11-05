@@ -143,4 +143,21 @@ public class PaintTest extends ApplicationTest {
 		}
 		assertTrue(app.getStatutBar().getCountSelectedShape() == 2);
 	}
+
+	@Test
+	public void check_delete_selected_shape() {
+		assertTrue(app.getDrawingPane().getSelection().size() == 0);
+
+		clickOn("Triangle");
+		moveBy(50, 50);
+		drag().dropBy(80, 80);
+
+		clickOn("Rectangle");
+		moveBy(40, 40);
+		drag().dropBy(90, 90);
+
+		clickOn("Supprimer");
+
+		assertTrue(app.getDrawingPane().getNbShapes() == 1);
+	}
 }
