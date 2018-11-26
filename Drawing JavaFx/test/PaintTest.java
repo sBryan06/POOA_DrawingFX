@@ -182,7 +182,6 @@ public class PaintTest extends ApplicationTest {
 		clickOn("Group");
 
 		assertTrue(app.getDrawingPane().getShapes().size() == 1);
-
 		final Iterator it = app.getDrawingPane().iterator();
 		assertTrue(Group.class.isInstance(it.next()));
 		assertFalse(it.hasNext());
@@ -190,6 +189,7 @@ public class PaintTest extends ApplicationTest {
 		clickOn(app.getDrawingPane().getChildren().get(0));
 		clickOn("Ungroup");
 
+		assertTrue(app.getDrawingPane().getShapes().size() == 3);
 		final Iterator it2 = app.getDrawingPane().iterator();
 		assertTrue(ShapeAdapter.class.isInstance(it2.next()));
 	}
