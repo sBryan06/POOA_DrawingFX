@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
 import drawing.PaintApplication;
+import drawing.shapes.Group;
 import drawing.shapes.IShape;
 import drawing.shapes.ShapeAdapter;
 import javafx.scene.input.KeyCode;
@@ -156,8 +157,40 @@ public class PaintTest extends ApplicationTest {
 		moveBy(40, 40);
 		drag().dropBy(90, 90);
 
-		clickOn("Supprimer");
+		clickOn("Delete");
 
 		assertTrue(app.getDrawingPane().getNbShapes() == 1);
+	}
+
+	@Test
+	public void check_group_and_ungroup_shapes() {
+		clickOn("Rectangle");
+		moveBy(30, 60).drag().dropBy(70, 40);
+		clickOn("Circle");
+		moveBy(-30, 160).drag().dropBy(70, 40);
+		clickOn("Triangle");
+		moveBy(50, 50).drag().dropBy(80, 80);
+
+		press(KeyCode.SHIFT).clickOn(app.getDrawingPane().getChildren().get(0));
+		clickOn(app.getDrawingPane().getChildren().get(1));
+//		clickOn(app.getDrawingPane().getChildren().get(2));
+
+		release(KeyCode.SHIFT);
+
+		assertTrue(app.getDrawingPane().getShapes().size() == 3);
+
+		clickOn("Group");
+
+		assertTrue(app.getDrawingPane().getShapes().size() == 1);
+
+		final Iterator it = app.getDrawingPane().iterator();
+		assertTrue(Group.class.isInstance(it.next()));
+		assertFalse(it.hasNext());
+
+		clickOn(app.getDrawingPane().getChildren().get(0));
+		clickOn("Ungroup");
+
+		final Iterator it2 = app.getDrawingPane().iterator();
+		assertTrue(ShapeAdapter.class.isInstance(it2.next()));
 	}
 }

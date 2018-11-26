@@ -51,6 +51,11 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 		});
 	}
 
+	/**
+	 * Add shape
+	 * 
+	 * @param shape
+	 */
 	public void addShape(final IShape shape) {
 		shapes.add(shape);
 //		this.getChildren().add(shape);
@@ -58,6 +63,11 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 		this.notifyObservers();
 	}
 
+	/**
+	 * Remove shape
+	 * 
+	 * @param shape
+	 */
 	public void removeShape(final IShape shape) {
 		shapes.remove(shape);
 		shape.removeShapeFromPane(this);
@@ -72,6 +82,9 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 		return shapes.iterator();
 	}
 
+	/**
+	 * Clear all shapes
+	 */
 	public void clear() {
 //		this.getChildren().removeAll(shapes);
 		for (final IShape shape : shapes) {
@@ -81,16 +94,25 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 		this.notifyObservers();
 	}
 
+	/**
+	 * Add observer
+	 */
 	@Override
 	public void addObserver(final Observer o) {
 		observers.add(o);
 	}
 
+	/**
+	 * Remove observer
+	 */
 	@Override
 	public void removeObserver(final Observer o) {
 		observers.remove(o);
 	}
 
+	/**
+	 * Notify observers
+	 */
 	@Override
 	public void notifyObservers() {
 		for (final Observer observer : observers) {
@@ -98,23 +120,44 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 		}
 	}
 
+	/**
+	 * Get number of shapes
+	 * 
+	 * @return
+	 */
 	public int getNbShapes() {
 		return shapes.size();
 	}
 
+	/**
+	 * get shapes selected
+	 * 
+	 * @return
+	 */
 	public List<IShape> getSelection() {
 		return selectionHandler.getSelectedShapes();
 	}
 
+	/**
+	 * Update
+	 */
 	@Override
 	public void update() {
 		notifyObservers();
 	}
 
+	/**
+	 * Get Shapes
+	 * 
+	 * @return
+	 */
 	public ArrayList<IShape> getShapes() {
 		return shapes;
 	}
 
+	/**
+	 * Permet de déselectionner toutes les formes
+	 */
 	public void clearSelectedShape() {
 		selectionHandler.clearSelectedShapes();
 	}

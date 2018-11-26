@@ -27,31 +27,33 @@ public class ToolBar extends HBox {
 	private Button groupButton;
 	private Button ungroupButton;
 
+	private final StyleButtonEnum styleButton = StyleButtonEnum.TEXT_ONLY;
+
 	public ToolBar(final DrawingPane d) {
 		drawingPane = d;
 		init();
 	}
 
 	public void init() {
-		clearButton = buttonFactory.createButton(ButtonEnum.CLEAR, StyleButtonEnum.ICON_ONLY);
+		clearButton = buttonFactory.createButton(ButtonEnum.CLEAR, styleButton);
 		clearButton.addEventFilter(ActionEvent.ACTION, new ClearButtonHandler(drawingPane));
 
-		rectangleButton = buttonFactory.createButton(ButtonEnum.RECTANGLE, StyleButtonEnum.ICON_ONLY);
+		rectangleButton = buttonFactory.createButton(ButtonEnum.RECTANGLE, styleButton);
 		rectangleButton.addEventFilter(ActionEvent.ACTION, new RectangleButtonHandler(drawingPane));
 
-		circleButton = buttonFactory.createButton(ButtonEnum.CIRCLE, StyleButtonEnum.ICON_ONLY);
+		circleButton = buttonFactory.createButton(ButtonEnum.CIRCLE, styleButton);
 		circleButton.addEventFilter(ActionEvent.ACTION, new EllipseButtonHandler(drawingPane));
 
-		triangleButton = buttonFactory.createButton(ButtonEnum.TRIANGLE, StyleButtonEnum.ICON_ONLY);
+		triangleButton = buttonFactory.createButton(ButtonEnum.TRIANGLE, styleButton);
 		triangleButton.addEventFilter(ActionEvent.ACTION, new TriangleButtonHandler(drawingPane));
 
-		supprimerButton = buttonFactory.createButton(ButtonEnum.DELETE, StyleButtonEnum.ICON_ONLY);
+		supprimerButton = buttonFactory.createButton(ButtonEnum.DELETE, styleButton);
 		supprimerButton.addEventFilter(ActionEvent.ACTION, new SupprimerButtonHandler(drawingPane));
 
-		groupButton = buttonFactory.createButton(ButtonEnum.GROUP, StyleButtonEnum.ICON_ONLY);
+		groupButton = buttonFactory.createButton(ButtonEnum.GROUP, styleButton);
 		groupButton.addEventFilter(ActionEvent.ACTION, new GroupButtonHandler(drawingPane));
 
-		ungroupButton = buttonFactory.createButton(ButtonEnum.UNGROUP, StyleButtonEnum.ICON_ONLY);
+		ungroupButton = buttonFactory.createButton(ButtonEnum.UNGROUP, styleButton);
 		ungroupButton.addEventFilter(ActionEvent.ACTION, new UngroupButtonHandler(drawingPane));
 
 		getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton, supprimerButton, groupButton,
