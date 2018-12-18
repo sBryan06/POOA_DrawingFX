@@ -3,7 +3,7 @@ package drawing.enums;
 public enum ButtonEnum {
 	CLEAR("Clear", "clear.png"), RECTANGLE("Rectangle", "rectangle.png"), CIRCLE("Circle", "circle.png"),
 	TRIANGLE("Triangle", "triangle.png"), DELETE("Delete", "delete.png"), GROUP("Group", "group.png"),
-	UNGROUP("Ungroup", "ungroup.png");
+	UNGROUP("Ungroup", "ungroup.png"), UNDO("Undo", "undo.png"), REDO("Redo", "redo.png");
 
 	private String label;
 	private String fileName;

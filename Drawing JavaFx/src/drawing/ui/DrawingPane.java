@@ -6,6 +6,7 @@ import java.util.List;
 
 import drawing.Observable;
 import drawing.Observer;
+import drawing.commands.CommandHistory;
 import drawing.handlers.MouseMoveHandler;
 import drawing.handlers.SelectionHandler;
 import drawing.shapes.IShape;
@@ -26,6 +27,8 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 
 	private final SelectionHandler selectionHandler;
 
+	private final CommandHistory commandHistory;
+
 	public DrawingPane() {
 		clipChildren();
 		shapes = new ArrayList<>();
@@ -34,6 +37,8 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 		selectionHandler = new SelectionHandler(this);
 
 		selectionHandler.addObserver(this);
+
+		commandHistory = new CommandHistory();
 	}
 
 	/**
@@ -53,7 +58,7 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 
 	/**
 	 * Add shape
-	 * 
+	 *
 	 * @param shape
 	 */
 	public void addShape(final IShape shape) {
@@ -65,7 +70,7 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 
 	/**
 	 * Remove shape
-	 * 
+	 *
 	 * @param shape
 	 */
 	public void removeShape(final IShape shape) {
@@ -122,7 +127,7 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 
 	/**
 	 * Get number of shapes
-	 * 
+	 *
 	 * @return
 	 */
 	public int getNbShapes() {
@@ -131,7 +136,7 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 
 	/**
 	 * get shapes selected
-	 * 
+	 *
 	 * @return
 	 */
 	public List<IShape> getSelection() {
@@ -148,7 +153,7 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 
 	/**
 	 * Get Shapes
-	 * 
+	 *
 	 * @return
 	 */
 	public ArrayList<IShape> getShapes() {
@@ -161,4 +166,9 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable, O
 	public void clearSelectedShape() {
 		selectionHandler.clearSelectedShapes();
 	}
+
+	public CommandHistory getCommandHistory() {
+		return commandHistory;
+	}
+
 }

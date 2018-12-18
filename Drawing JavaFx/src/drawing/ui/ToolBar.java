@@ -9,6 +9,7 @@ import drawing.handlers.GroupButtonHandler;
 import drawing.handlers.RectangleButtonHandler;
 import drawing.handlers.SupprimerButtonHandler;
 import drawing.handlers.TriangleButtonHandler;
+import drawing.handlers.UndoButtonHandler;
 import drawing.handlers.UngroupButtonHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -26,6 +27,7 @@ public class ToolBar extends HBox {
 	private Button supprimerButton;
 	private Button groupButton;
 	private Button ungroupButton;
+	private Button undoButton;
 
 	private final StyleButtonEnum styleButton = StyleButtonEnum.TEXT_ONLY;
 
@@ -35,6 +37,10 @@ public class ToolBar extends HBox {
 	}
 
 	public void init() {
+
+		undoButton = buttonFactory.createButton(ButtonEnum.UNDO, styleButton);
+		undoButton.addEventFilter(ActionEvent.ACTION, new UndoButtonHandler(drawingPane));
+
 		clearButton = buttonFactory.createButton(ButtonEnum.CLEAR, styleButton);
 		clearButton.addEventFilter(ActionEvent.ACTION, new ClearButtonHandler(drawingPane));
 
@@ -56,7 +62,7 @@ public class ToolBar extends HBox {
 		ungroupButton = buttonFactory.createButton(ButtonEnum.UNGROUP, styleButton);
 		ungroupButton.addEventFilter(ActionEvent.ACTION, new UngroupButtonHandler(drawingPane));
 
-		getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton, supprimerButton, groupButton,
-				ungroupButton);
+		getChildren().addAll(undoButton, clearButton, rectangleButton, circleButton, triangleButton, supprimerButton,
+				groupButton, ungroupButton);
 	}
 }

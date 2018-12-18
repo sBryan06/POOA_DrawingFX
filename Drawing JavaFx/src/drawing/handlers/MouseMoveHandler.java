@@ -3,6 +3,8 @@ package drawing.handlers;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import drawing.commands.ICommand;
+import drawing.commands.MoveCommand;
 import drawing.shapes.IShape;
 import drawing.ui.DrawingPane;
 import javafx.event.EventHandler;
@@ -16,9 +18,13 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
 	Logger logger = Logger.getLogger(MouseMoveHandler.class.getName());
 
 	private final DrawingPane drawingPane;
+	private ICommand command;
 
 	private double orgSceneX;
 	private double orgSceneY;
+
+	private double sommeOffsetX = 0;
+	private double sommeOffsetY = 0;
 
 	public MouseMoveHandler(final DrawingPane drawingPane) {
 		this.drawingPane = drawingPane;
@@ -42,6 +48,10 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
 			final double offsetX = event.getSceneX() - orgSceneX;
 			final double offsetY = event.getSceneY() - orgSceneY;
 
+			sommeOffsetX += offsetX;
+			sommeOffsetY += offsetY;
+
+			// deplacement pour voir le move
 			for (final IShape shape : drawingPane.getSelection()) {
 				shape.offset(offsetX, offsetY);
 			}
@@ -50,12 +60,15 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
 			orgSceneY = event.getSceneY();
 		}
 
-//		if (event.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
-//			if (selectedShape == null)
-//				return;
-//
-//			selectedShape.setSelected(false);
-//			selectedShape = null;
-//		}
+		if (event.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
+			if (sommeOffsetX > 0 && sommeOffsetY > 0) {
+				drawingPane.getSelection().forEach(shape -> shape.offset(-sommeOffsetX, -sommeOffsetY));
+				command = new MoveCommand(drawingPane, drawingPane.getSelection(), sommeOffsetX, sommeOffsetY);
+				drawingPane.getCommandHistory().exec(command);
+				sommeOffsetX = 0;
+				sommeOffsetY = 0;
+				drawingPane.clearSelectedShape();
+			}
+		}
 	}
 }
