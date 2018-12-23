@@ -7,6 +7,7 @@ import drawing.handlers.ClearButtonHandler;
 import drawing.handlers.EllipseButtonHandler;
 import drawing.handlers.GroupButtonHandler;
 import drawing.handlers.RectangleButtonHandler;
+import drawing.handlers.RedoButtonHandler;
 import drawing.handlers.SupprimerButtonHandler;
 import drawing.handlers.TriangleButtonHandler;
 import drawing.handlers.UndoButtonHandler;
@@ -28,8 +29,9 @@ public class ToolBar extends HBox {
 	private Button groupButton;
 	private Button ungroupButton;
 	private Button undoButton;
+	private Button redoButton;
 
-	private final StyleButtonEnum styleButton = StyleButtonEnum.TEXT_ONLY;
+	private final StyleButtonEnum styleButton = StyleButtonEnum.ICON_ONLY;
 
 	public ToolBar(final DrawingPane d) {
 		drawingPane = d;
@@ -40,6 +42,9 @@ public class ToolBar extends HBox {
 
 		undoButton = buttonFactory.createButton(ButtonEnum.UNDO, styleButton);
 		undoButton.addEventFilter(ActionEvent.ACTION, new UndoButtonHandler(drawingPane));
+
+		redoButton = buttonFactory.createButton(ButtonEnum.REDO, styleButton);
+		redoButton.addEventFilter(ActionEvent.ACTION, new RedoButtonHandler(drawingPane));
 
 		clearButton = buttonFactory.createButton(ButtonEnum.CLEAR, styleButton);
 		clearButton.addEventFilter(ActionEvent.ACTION, new ClearButtonHandler(drawingPane));
@@ -62,7 +67,7 @@ public class ToolBar extends HBox {
 		ungroupButton = buttonFactory.createButton(ButtonEnum.UNGROUP, styleButton);
 		ungroupButton.addEventFilter(ActionEvent.ACTION, new UngroupButtonHandler(drawingPane));
 
-		getChildren().addAll(undoButton, clearButton, rectangleButton, circleButton, triangleButton, supprimerButton,
-				groupButton, ungroupButton);
+		getChildren().addAll(undoButton, redoButton, clearButton, rectangleButton, circleButton, triangleButton,
+				supprimerButton, groupButton, ungroupButton);
 	}
 }

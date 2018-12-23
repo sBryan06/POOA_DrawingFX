@@ -18,20 +18,24 @@ public class ClearCommand implements ICommand {
 
 	@Override
 	public void execute() {
-//		setShapesBeforeClearing(drawingPane.getShapes());
 		shapesBeforeClearing.addAll(drawingPane.getShapes());
 
+		clear();
+	}
+
+	private void clear() {
 		drawingPane.clear();
 		drawingPane.clearSelectedShape();
 	}
 
 	@Override
 	public void undo() {
-//		drawingPane.getShapes().addAll(shapesBeforeClearing);
 		shapesBeforeClearing.forEach(shape -> drawingPane.addShape(shape));
 	}
 
-//	public void setShapesBeforeClearing(final List<IShape> shapesBeforeClearing) {
-//		this.shapesBeforeClearing = shapesBeforeClearing;
-//	}
+	@Override
+	public void redo() {
+		clear();
+	}
+
 }

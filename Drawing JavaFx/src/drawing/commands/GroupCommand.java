@@ -24,11 +24,7 @@ public class GroupCommand implements ICommand {
 		// save for undo
 		savedGroup = g;
 
-		for (final IShape iShape : selectedShape) {
-			drawingPane.removeShape(iShape);
-		}
-
-		drawingPane.addShape(g);
+		groupShapes();
 	}
 
 	@Override
@@ -40,4 +36,13 @@ public class GroupCommand implements ICommand {
 		shapesOfGroup.forEach(shape -> drawingPane.addShape(shape));
 	}
 
+	@Override
+	public void redo() {
+		groupShapes();
+	}
+
+	private void groupShapes() {
+		savedGroup.getShapes().forEach(shape -> drawingPane.removeShape(shape));
+		drawingPane.addShape(savedGroup);
+	}
 }

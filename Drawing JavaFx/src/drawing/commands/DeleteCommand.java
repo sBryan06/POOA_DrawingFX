@@ -20,9 +20,7 @@ public class DeleteCommand implements ICommand {
 	public void execute() {
 		System.out.println("deleteCommand execute");
 		savedShapes = drawingPane.getSelection();
-		for (final IShape iShape : drawingPane.getSelection()) {
-			drawingPane.removeShape(iShape);
-		}
+		removeShapes();
 
 		drawingPane.clearSelectedShape();
 	}
@@ -30,5 +28,17 @@ public class DeleteCommand implements ICommand {
 	@Override
 	public void undo() {
 		savedShapes.forEach(shape -> drawingPane.addShape(shape));
+	}
+
+	@Override
+	public void redo() {
+		removeShapes();
+	}
+
+	private void removeShapes() {
+//		for (final IShape iShape : drawingPane.getSelection()) {
+//			drawingPane.removeShape(iShape);
+//		}
+		savedShapes.forEach(shape -> drawingPane.removeShape(shape));
 	}
 }

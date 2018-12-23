@@ -29,4 +29,8 @@ public class MoveCommand implements ICommand {
 		shapes.forEach(shape -> shape.offset(-offsetX, -offsetY));
 	}
 
+	@Override
+	public void redo() {
+		execute();
+	}
 }

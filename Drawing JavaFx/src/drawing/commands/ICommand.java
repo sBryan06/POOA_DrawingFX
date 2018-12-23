@@ -10,4 +10,9 @@ public interface ICommand {
 	 * Permet d'annuler la dernier action
 	 */
 	public void undo();
+
+	/**
+	 * Permet de remettre de la derniere modif
+	 */
+	public void redo();
 }

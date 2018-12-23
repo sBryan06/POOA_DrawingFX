@@ -45,4 +45,12 @@ public class UngroupCommand implements ICommand {
 		}
 	}
 
+	@Override
+	public void redo() {
+		// TODO Auto-generated method stub
+		for (final Group group : savedGroups) {
+			drawingPane.removeShape(group);
+			group.getShapes().forEach(shape -> drawingPane.addShape(shape));
+		}
+	}
 }

@@ -18,7 +18,6 @@ public class AddShapeCommand implements ICommand {
 
 	@Override
 	public void execute() {
-		logger.info("AddShapeCommand::execute");
 		drawingPane.addShape(shape);
 	}
 
@@ -27,4 +26,8 @@ public class AddShapeCommand implements ICommand {
 		drawingPane.removeShape(shape);
 	}
 
+	@Override
+	public void redo() {
+		execute();
+	}
 }
